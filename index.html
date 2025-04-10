@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Insights Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Customer Insights Dashboard</h1>
+
+    <section class="card">
+      <h2>Predict Customer Churn</h2>
+      <form id="predictForm">
+        <label>Tenure (in months):
+          <input type="number" name="tenure" id="tenure" required />
+        </label>
+
+        <label>Monthly Charges:
+          <input type="number" step="0.01" name="MonthlyCharges" id="MonthlyCharges" required />
+        </label>
+
+        <label>Contract Type:
+          <select name="Contract" id="Contract" required>
+            <option value="Month-to-month">Month-to-month</option>
+            <option value="One year">One year</option>
+            <option value="Two year">Two year</option>
+          </select>
+        </label>
+
+        <label>Internet Service:
+          <select name="InternetService" id="InternetService" required>
+            <option value="DSL">DSL</option>
+            <option value="Fiber optic">Fiber optic</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+
+        <label>Online Security:
+          <select name="OnlineSecurity" id="OnlineSecurity" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="No internet service">No internet service</option>
+          </select>
+        </label>
+
+        <label>Tech Support:
+          <select name="TechSupport" id="TechSupport" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="No internet service">No internet service</option>
+          </select>
+        </label>
+
+        <button type="submit">Predict</button>
+      </form>
+
+      <div id="resultBox"></div>
+      <div id="loading" style="display: none;">⏳ Predicting...</div>
+    </section>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('predictForm');
+    const resultBox = document.getElementById('resultBox');
+    const loading = document.getElementById('loading');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      resultBox.textContent = '';
+      resultBox.className = '';
+      loading.style.display = 'block';
+
+      const tenure = parseInt(document.getElementById('tenure').value);
+      const MonthlyCharges = parseFloat(document.getElementById('MonthlyCharges').value);
+      const Contract = document.getElementById('Contract').value;
+      const InternetService = document.getElementById('InternetService').value;
+      const OnlineSecurity = document.getElementById('OnlineSecurity').value;
+      const TechSupport = document.getElementById('TechSupport').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tenure, MonthlyCharges, Contract, InternetService, OnlineSecurity, TechSupport })
+        });
+
+        const result = await response.json();
+        loading.style.display = 'none';
+
+        if (result.prediction !== undefined) {
+          resultBox.textContent = `Prediction: ${result.status}`;
+          resultBox.className = result.prediction === 1 ? "churn" : "no-churn";
+        } else {
+          resultBox.textContent = "⚠️: " + result.error;
+          resultBox.className = "error";
+        }
+      } catch (err) {
+        loading.style.display = 'none';
+        resultBox.textContent = "⚠️ Error connecting to server.";
+        resultBox.className = "error";
+      }
+    });
+  </script>
+</body>
+</html>

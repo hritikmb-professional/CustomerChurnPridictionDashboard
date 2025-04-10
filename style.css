@@ -1,0 +1,106 @@
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #f8f9fb, #eef2f7);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 900px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Headings */
+  h1 {
+    font-size: 2.2rem;
+    text-align: center;
+    color: #222;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 15px;
+  }
+  
+  /* Card Sections */
+  .card {
+    background: #f7fafc;
+    border-left: 5px solid #4CAF50;
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 30px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form Styles */
+  form label {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  input[type="number"] {
+    padding: 10px;
+    margin-top: 8px;
+    width: 100%;
+    max-width: 320px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type="number"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  /* Predict Button */
+  button {
+    padding: 12px 24px;
+    background: linear-gradient(to right, #4CAF50, #45a049);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background 0.3s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #43a047, #388e3c);
+  }
+  
+  /* Insight List */
+  ul {
+    padding-left: 20px;
+    list-style-type: '🔹 ';
+  }
+  
+  ul li {
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+  
+  /* Emoji highlight */
+  p {
+    font-style: italic;
+    margin-top: 10px;
+    color: #555;
+  }
+  
